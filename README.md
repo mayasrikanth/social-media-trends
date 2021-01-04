@@ -1,5 +1,16 @@
 ## Welcome to Social Media Trends!
 
+
+Here is a quick link to this project: https://mayasrikanth.github.io/social-media-trends/
+
+Here, I am builing an interface to help shed more light on social media data collection. Currently, the site is a demo which dynamically loads .csv data from Twitter #MeToo movement. There, you will find graphs showing time series forecasting and word embedding results to provide more insight into commonly used #MeToo-related hashtags. The ultimate goal is to deploy this website (and accompanying backend scripts) for researchers to use in their own data analysis process. 
+
+
+More progress coming soon.
+
+
+
+
 <!-- You can use the [editor on GitHub](https://github.com/mayasrikanth/social-media-trends/edit/main/README.md) to maintain and preview the content for your website in Markdown files.
 
 <!-- Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
