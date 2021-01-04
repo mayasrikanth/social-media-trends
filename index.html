@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+    <!-- including ECharts file -->
+    <script src="incubator-echarts-5.0.0-rc.3/dist/echarts.js"></script>
+    <script src="papaparse.min.js"></script>
+    <script src="require.js"></script>
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Including JQuery and plotting.js right below closing of body.. -->
+    <!-- <script src="plotting.js"> </script> --> 
+
+</head>
+
+
+<!--  https://www.papaparse.com/#remote-files --> 
+<body>
+
+    <div class='header'> 
+      <h2>Forecasting Twitter Movements</h2>
+      <p>key insights for social media data collection</p>
+    </div>
+     <p align='center'>
+      <!-- Adding Table -->
+        <table align="center" id="foo">
+        <tbody>
+        <tr>
+            <!-- Use these to toggle between graphs. -->
+              <!-- OLD VERSION: <th> <button onclick="cosineDistanceTable(); loaddata2(); " class="my-custom-button btn"> #toxicfeminism </button> </th> -->
+
+              <th> <button onclick="selectKeyword('toxicfeminism'); " class="my-custom-button btn"> #toxicfeminism </button> </th>
+              <th> <button onclick="test(); selectKeyword('notallmen');" class="my-custom-button btn"> #notallmen </button> </th>
+              <th> <button onclick="selectKeyword('yesallwomen')" class="my-custom-button btn"> #yesallwomen </button> </th>
+              <th> <button onclick="selectKeyword('womenwhowork')" class="my-custom-button btn"> #womenwhowork </button> </th>
+              <th> <button onclick="selectKeyword('heforshe')" class="my-custom-button btn"> #heforshe </button> </th>
+              <!--<th> <button onclick="cosineDistanceTable()" class="my-custom-button btn"> Load Table </button> </th>-->
+        </tr>
+        </tbody>
+ </table>
+
+    <div class="flex-container" style="padding-top: 25px;">
+    <!--<div id="pred1" class="flex-child" style="width: 600px;height:400px;"></div>-->
+    <!-- width: 500px;height:400px; --> 
+    <div id="all1" class="flex-child" style="padding-left:20px; min-width:25%;"></div>
+    <div id="pred1" class="flex-child" style="padding-left:10px; min-width: 28%;"></div>
+
+    <div id="tsne" class="flex-child" style="padding-left:20px; min-width: 25%;"></div>
+
+      <div  style="width:250px; height:400px; padding-right:20px; flex; overflow-y: scroll;">
+        
+
+        <table class="styled-table" id="cosine-table">
+        <thead>
+               <tr>
+                    <th>Neighbor</th>
+                    <th>Log Raw Count</th>
+                   <!-- <th> Corpus Frequency </th> -->
+                </tr>
+        </thead>
+        <tbody id="cosine-table-body"> <!-- Dynamic table. -->
+           <!--<tr>
+                    <td>#feminismismanhating</td>
+                    <td>0.2984</td>
+            </tr>
+            <tr class="active-row">
+                    <td>#feminismisawful</td>
+                    <td>0.355857</td>
+            </tr>
+            <tr>
+                    <td>#sjwlogic</td>
+                    <td>0.508122</td>
+            </tr>
+            <tr>
+                    <td>whiners</td>
+                    <td>0.4963</td>
+            </tr>
+            <tr>
+                <td>#idosabotage</td>
+                <td>0.4972</td>
+
+            </tr>
+            <tr>
+                    <td>erotica</td>
+                    <td>0.4987</td>
+            </tr> -->
+                <!-- and so on... -->
+             </tbody> 
+        </table>
+      </div> 
+    </div>
+
+        <!-- Adding extra space at end of webpage. -->
+    <div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+    </div>
+ 
+  
+    <div id="tsneplot" style="width: 600px;height:400px; padding-left:20px;"></div>
+
+    <hr class='hr-style-one'>
+
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="plotting.js"></script>
+    <script type="text/javascript">
+        
+        /* Each keyword has an associated button. Each button has an associated boolean flag. If the boolean flag is false, we know the button has not been pressed, which implies that data has not been loaded. Accordingly, we use papaparse in appropriate button function to set data variables in plotting.js, before calling the function to load charts. 
+
+        If the boolean flag is true, we know we have already loaded data. So, we simply assign the correct array and call the chart loading function in plotting.js. 
+        */
+
+        //Hardcoding button press bools
+        var yesallwomen = false; 
+        var womenwhowork = false;
+        var toxicfeminism = false; 
+        var notallmen = false;
+        var heforshe = false; 
+
+        var homepath = "https://raw.githubusercontent.com/mayasrikanth/mayasrikanth.github.io/main/data/";
+        var currkeyword = 'toxicfeminism';
+
+        var suff1 = '_forecast.csv';
+        var suff2 = '_observations.csv';
+        var suff3 = '_tsne.csv';
+
+        function test(){
+            console.log('hi');
+        }
+
+        // IF a button was pressed
+        function selectKeyword(keyword){
+            loaddata2(); // initialize charts if they aren't there. 
+
+            if (keyword === 'yesallwomen'){
+                currkeyword = 'yesallwomen';
+                var fname1 = currkeyword.concat(suff1);
+                var fname2 = currkeyword.concat(suff2);
+                var fname3 = currkeyword.concat(suff3);
+
+
+                // loading all data and populating charts. 
+                parseCSVGraph1(homepath.concat(fname1), currkeyword); 
+                parseCSVGraph2(homepath.concat(fname2), currkeyword); 
+                parseCSVGraph3(homepath.concat(fname3), currkeyword); 
+            }
+            else if (keyword === 'womenwhowork' ) {
+                currkeyword = 'womenwhowork';
+                var fname1 = currkeyword.concat(suff1);
+                var fname2 = currkeyword.concat(suff2);
+                var fname3 = currkeyword.concat(suff3);
+
+                // loading all data and populating charts. 
+                parseCSVGraph1(homepath.concat(fname1), currkeyword); 
+                parseCSVGraph2(homepath.concat(fname2), currkeyword); 
+                parseCSVGraph3(homepath.concat(fname3), currkeyword); 
+            }
+            else if (keyword === 'toxicfeminism') {
+                // let's just load regardless to begin with. 
+                currkeyword = 'toxicfeminism';
+                 var fname1 = currkeyword.concat(suff1);
+                var fname2 = currkeyword.concat(suff2);
+                var fname3 = currkeyword.concat(suff3);
+
+
+                // loading all data and populating charts. 
+                parseCSVGraph1(homepath.concat(fname1), currkeyword); 
+                parseCSVGraph2(homepath.concat(fname2), currkeyword); 
+                parseCSVGraph3(homepath.concat(fname3), currkeyword); 
+
+            }
+            else if (keyword === 'notallmen') {
+                console.log("made it into if statement.");
+                currkeyword = 'notallmen';
+        
+                var fname1 = currkeyword.concat(suff1);
+                var fname2 = currkeyword.concat(suff2);
+                var fname3 = currkeyword.concat(suff3);
+
+                // loading all data and populating charts. 
+                parseCSVGraph1(homepath.concat(fname1), currkeyword); 
+                parseCSVGraph2(homepath.concat(fname2), currkeyword); 
+                parseCSVGraph3(homepath.concat(fname3), currkeyword); 
+
+            }
+            else if (keyword === 'heforshe') {
+                currkeyword = 'heforshe';
+                var fname1 = currkeyword.concat(suff1);
+                var fname2 = currkeyword.concat(suff2);
+                var fname3 = currkeyword.concat(suff3);
+
+
+                // loading all data and populating charts. 
+                parseCSVGraph1(homepath.concat(fname1), currkeyword); 
+                parseCSVGraph2(homepath.concat(fname2), currkeyword); 
+                parseCSVGraph3(homepath.concat(fname3), currkeyword); 
+
+            }
+        }
+
+
+    // Function to load data on demand from .csv file and populate graph 1. 
+    function parseCSVGraph1(path, hash_name) {
+        Papa.parse(path, {
+              download: true,
+              header: true,
+              dynamicTyping: true, 
+              complete: function(results) {
+                var res = results.data; 
+                console.log("Graph1 data preview: ");
+                console.log(res[0]);
+
+                var freq = [];
+                var conf_low = [];
+                var conf_area = [];
+
+                for (var i = 0; i < res.length; i++) {
+                    freq.push(res[i].freq);
+                    conf_low.push(res[i].conf_low);
+                    conf_area.push(res[i].conf_area);
+                }
+                // fn. signature: function loadGraph1(forecasts, conf_low, conf_area, hash_name)
+                loadGraph1(freq, conf_low, conf_area, hash_name);
+              }
+        });
+    }
+        
+    function parseCSVGraph2(path, hash_name) {
+        Papa.parse(path, {
+              download: true,
+              header: true,
+              dynamicTyping: true, 
+              complete: function(results) {
+                var res = results.data; 
+
+                console.log("Graph2 data preview: ");
+                console.log(res[0]);
+
+                var data_true = [];
+                var data_pred = [];
+
+                for (var i = 0; i < res.length; i++) {
+                    
+                    data_true.push(res[i].True);
+                    data_pred.push(res[i].Pred);
+                }
+
+                // fn. signature: loadGraph2(data_true, data_pred, hash_name)
+                loadGraph2(data_true, data_pred, hash_name);
+              }
+        });
+    }
+
+    function parseCSVGraph3(path, hash_name) {
+        Papa.parse(path, {
+              download: true,
+              header: true,
+              dynamicTyping: true, 
+              complete: function(results) {
+                var res = results.data; 
+
+                // LOAD CLOSEST NEIGHBORS TABLE. 
+                var words_arr = [];
+                var freq_arr = [];
+
+                
+                for (var i=1; i < res.length; i++) {
+                    words_arr.push(res[i].Labels);
+                    freq_arr.push(res[i].Sizes);
+
+                }
+                // fn. signature: loadTableDynamic(word_arr, freq_arr)
+                loadTableDynamic(words_arr, freq_arr);
+
+                // LOAD TSNE PLOT. 
+                var target_data = [];
+                var neighbors_data = [];
+
+                // loading target data. 
+                var arr = [];
+                arr.push(res[0].Xcoords);
+                arr.push(res[0].Ycoords);
+                arr.push(res[0].Labels);
+                arr.push(res[0].Sizes);
+                target_data.push(arr); 
+
+
+                // loading neighbor data. 
+                for(var i=1; i < res.length-1; i ++) {
+                    var arr = [];
+                    arr.push(res[i].Xcoords);
+                    arr.push(res[i].Ycoords);
+                    arr.push(res[i].Labels);
+                    arr.push(res[i].Sizes);
+                    neighbors_data.push(arr);
+                    console.log(res[i].Labels);
+                }
+                console.log("printing neighbors_data");
+                console.log(neighbors_data);
+                // fn. signature: loadGraph3(target_data, neighbors_data)
+                loadGraph3(target_data, neighbors_data, hash_name);
+         }     
+        });
+    
+    }
+
+
+        // Next step: write a backend script that (1) updates data .csv for frequency forecast. 
+        // (2) updates cosine information. Try updating data file via that script. 
+
+        // Add description pane to website and load onto github. 
+
+
+
+    /*var dataURL = "https://raw.githubusercontent.com/mayasrikanth/mayasrikanth.github.io/main/data/website-data.csv";
+
+    let res; 
+
+        var myRows = [];
+        const csvData = Papa.parse(dataURL, {
+              download: true,
+              header: true,
+              dynamicTyping: true, 
+
+
+             // step: function(row) {
+                //console.log("Row:", row.data);
+               // myRows.push(row.data);
+
+             //}, //for some reason, github does not allow stepping thru data. 
+              complete: function(results) {
+                res = results.data;
+                practice = results.data; // 'practice' is a var declared in plotting.js. 
+                console.log("ATTEMPT 1");
+                console.log(practice);
+                return res;
+              }
+            });
+
+
+        // data loads asynchronously. we will load data and set variables in the complete 
+        // function above. 
+        setTimeout(()=> {
+          console.log(res[0]);
+          console.log(res[0].True);
+        }, 5000);
+
+
+    // let's try loading data again. 
+     const csvData1 = Papa.parse(dataURL, {
+              download: true,
+              header: true,
+              dynamicTyping: true, 
+              complete: function(results) {
+                practice1 = results.data; // 'practice' is a var declared in plotting.js. 
+                console.log("ATTEMPT 2");
+                console.log(practice1);
+
+              }
+     }); */
+
+</script> 
+
+
+</body>
+</html>
