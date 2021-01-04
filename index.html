@@ -9,6 +9,16 @@
     <script src="require.js"></script>
     <link rel="stylesheet" href="style.css">
 
+    <!-- INCLUDING BOOSTRAP. Latest compiled and minified CSS -->
+    
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+
     <!-- Including JQuery and plotting.js right below closing of body.. -->
     <!-- <script src="plotting.js"> </script> --> 
 
@@ -18,7 +28,7 @@
 <!--  https://www.papaparse.com/#remote-files --> 
 <body>
 
-    <div class='header'> 
+    <div class='header; display-1'> 
       <h2>Forecasting Twitter Movements</h2>
       <p>key insights for social media data collection</p>
     </div>
@@ -43,10 +53,10 @@
     <div class="flex-container" style="padding-top: 25px;">
     <!--<div id="pred1" class="flex-child" style="width: 600px;height:400px;"></div>-->
     <!-- width: 500px;height:400px; --> 
-    <div id="all1" class="flex-child" style="padding-left:20px; min-width:25%;"></div>
-    <div id="pred1" class="flex-child" style="padding-left:10px; min-width: 28%;"></div>
+    <div id="all1" class="flex-child" style="padding-left:20px; min-width:25%;"> </div>
+    <div id="pred1" class="flex-child" style="padding-left:10px; min-width: 28%;"> </div>
 
-    <div id="tsne" class="flex-child" style="padding-left:20px; min-width: 25%;"></div>
+    <div id="tsne" class="flex-child" style="padding-left:20px; min-width: 25%;"> </div>
 
       <div  style="width:250px; height:400px; padding-right:20px; flex; overflow-y: scroll;">
         
@@ -91,10 +101,72 @@
       </div> 
     </div>
 
+
+<div class="flex-container" style="padding-top: 25px;">
+    <!-- Add styled description pane. -->
+</div>
+
+<style>
+.panel-default>.panel-heading-custom {
+    color: #333;
+    background: #f3f3f3;
+    opacity: 1;
+    border-color: #ddd;
+    text-align: center;
+ }
+</style>
+
+<div class="container col-md-6 col-md-offset-3">
+<div class="panel-group">
+     <div class="panel panel-default">
+
+        <div class="panel-heading-custom panel-heading heading "> <h3> Social Media Trends Demo</h3> </div>
+        <div class="panel-body panel-info">
+             To get started with this demo, click on any of the buttons above to view trends related to a #MeToo movement hashtag. See below an explanation for each data visualization provided, from left to right. 
+            <div>
+                <br>
+            </div>
+
+            <li> <strong> forecasts </strong>: shows the log of 35 most recent weekly counts for a given hashtag, and projects log counts 15 weeks into the future using ARIMA. ARIMA p, d, and q parameters were chosen by gridsearching and optimizing validation loss over a subset of hashtag counts. </li>
+            <li> <strong> counts </strong>: shows the log of the previous 80 observed weekly counts for a given hashtag ("true"), along with an ARIMA-projected count ("pred"). Here, the ARIMA model was trained up to the (t-1)th timestep, and used to predict the (t)th timestep. </li>
+            <li> <strong> closest neighbors </strong>: shows a tsne (t-distributed Stochastic Neighbor Embedding) plot of the 20 closest neighbors to the hashtag in a month of twitter data. Distance between words were determined using a GloVe embedding representation of the social media corpus. Size of a word corresponds to the log of its raw count (bigger bubbles mean more popular words). </li>
+            <li> <strong> table </strong>: shows the closest neighbors to a given hashtag, sorted in order of increasing distance.</li>
+
+              <div>
+                <br>
+            </div>
+
+           This demo is in progress and full code & documentation will be released within the next 3 months for public use. Here are some relevant links: 
+                <li > <a href="https://otexts.com/fpp2/arima.html"> ARIMA models </a> </li>
+                <li> <a href="https://link.springer.com/article/10.1007/s00181-010-0440-1"> Why log counts rather than counts for time series forecasting?  </a></li>
+                <li> <a href="https://nlp.stanford.edu/projects/glove/"> Stanford GloVe Embeddings </a></li>
+            </li>
+
+            <h4> More coming soon! </h2>
+
+        </div>
+
+     </div>
+</div>
+    
+
+<div>
+    <br>
+    <br>
+</div>
+
+
+    <figure>
+  <blockquote cite="https://developer.mozilla.org/samples/html/figure.html">
+   Contributor: <a href="https://mayasrikanth.github.io"> Maya Srikanth </a>
+    
+  </blockquote>
+  
+</figure>
+
+
         <!-- Adding extra space at end of webpage. -->
     <div>
-        <br>
-        <br>
         <br>
         <br>
         <br>
@@ -107,6 +179,8 @@
 
 
 
+    <figure>
+  
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="plotting.js"></script>
@@ -228,6 +302,7 @@
                 }
                 // fn. signature: function loadGraph1(forecasts, conf_low, conf_area, hash_name)
                 loadGraph1(freq, conf_low, conf_area, hash_name);
+
               }
         });
     }

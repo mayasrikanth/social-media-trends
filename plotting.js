@@ -587,6 +587,7 @@ function loadGraph1(forecasts, conf_low, conf_area, hash_name) {
 
  allchart.setOption(option1);//, animation=true);
 
+
 }
 
 
