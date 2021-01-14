@@ -51,6 +51,7 @@
               <th> <button onclick="selectKeyword('safe'); " class="my-custom-button btn"> safe </button> </th>
               <th> <button onclick="selectKeyword('security'); " class="my-custom-button btn"> #security </button> </th>
               <th> <button onclick="test(); selectKeyword('#biden');" class="my-custom-button btn"> #biden </button> </th>
+              <th> <button onclick="test(); selectKeyword('#bidenharris');" class="my-custom-button btn"> #bidenharris </button> </th>
 
               <!--<th> <button onclick="test(); selectKeyword('biden');" class="my-custom-button btn"> biden </button> </th>-->
               
@@ -114,12 +115,12 @@
     <br>
 </div>
 
-    <!--<figure>
+   <!-- <figure>
   <blockquote cite="https://developer.mozilla.org/samples/html/figure.html">
    Contributor: <a href="https://mayasrikanth.github.io"> Maya Srikanth </a>
-  </blockquote>
+  </blockquote>-->
   
-    </figure>-->
+</figure>
 
     <div>
         <br>
@@ -142,9 +143,21 @@
         var homepath = "https://raw.githubusercontent.com/mayasrikanth/mayasrikanth.github.io/main/data/";
         var currkeyword = 'toxicfeminism';
 
-        var suff1 = '_forecast.csv';
-        var suff2 = '_observations.csv';
-        var suff3 = '_tsne2.csv';
+        var day = '2'; // change depending on simulation date!
+
+        var suff1 = '_forecast';
+        var suff2 = '_observations';
+        var suff3 = '_tsne';
+
+        suff1 = suff1.concat(day);
+        suff2 = suff2.concat(day);
+        suff3 = suff3.concat(day);
+
+        var csv_suff = '.csv';
+
+        suff1 = suff1.concat(csv_suff);
+        suff2 = suff2.concat(csv_suff);
+        suff3 = suff3.concat(csv_suff);
 
         function test(){
             console.log('hi');
@@ -154,81 +167,20 @@
         function selectKeyword(keyword){
             loaddata2(); // initialize charts if they aren't there. 
 
-            // make this more scalable!
-
-            if (keyword === '#biden'){
-                currkeyword = 'biden';
-                var fname1 = currkeyword.concat(suff1);
-                var fname2 = currkeyword.concat(suff2);
-                var fname3 = currkeyword.concat(suff3);
-
-                // loading all data and populating charts. 
-                //parseCSVGraph1(homepath.concat(fname1), currkeyword); 
-                //parseCSVGraph2(homepath.concat(fname2), currkeyword); 
-                parseCSVGraph3(homepath.concat(fname3), currkeyword); 
-            }
-            else if (keyword === '#inauguration' ) {
-                currkeyword = 'inauguration';
-                var fname1 = currkeyword.concat(suff1);
-                var fname2 = currkeyword.concat(suff2);
-                var fname3 = currkeyword.concat(suff3);
-
-                // loading all data and populating charts. 
-                //parseCSVGraph1(homepath.concat(fname1), currkeyword); 
-                //parseCSVGraph2(homepath.concat(fname2), currkeyword); 
-                console.log(homepath.concat(fname3));
-                parseCSVGraph3(homepath.concat(fname3), currkeyword); 
-            }
-            else if (keyword === '#nationalguard' ) {
-                currkeyword = 'nationalguard';
-                var fname1 = currkeyword.concat(suff1);
-                var fname2 = currkeyword.concat(suff2);
-                var fname3 = currkeyword.concat(suff3);
-
-                // loading all data and populating charts. 
-                //parseCSVGraph1(homepath.concat(fname1), currkeyword); 
-                //parseCSVGraph2(homepath.concat(fname2), currkeyword); 
-                console.log(homepath.concat(fname3));
-                parseCSVGraph3(homepath.concat(fname3), currkeyword); 
-            }
-            else if (keyword === '#bidenharris' ) {
-                currkeyword = 'bidenharris';
-                var fname1 = currkeyword.concat(suff1);
-                var fname2 = currkeyword.concat(suff2);
-                var fname3 = currkeyword.concat(suff3);
-
-                // loading all data and populating charts. 
-                //parseCSVGraph1(homepath.concat(fname1), currkeyword); 
-                //parseCSVGraph2(homepath.concat(fname2), currkeyword); 
-                console.log(homepath.concat(fname3));
-                parseCSVGraph3(homepath.concat(fname3), currkeyword); 
-            }
-            else if (keyword === 'safe' ) {
-                currkeyword = 'safe';
-                var fname1 = currkeyword.concat(suff1);
-                var fname2 = currkeyword.concat(suff2);
-                var fname3 = currkeyword.concat(suff3);
-
-                // loading all data and populating charts. 
-                //parseCSVGraph1(homepath.concat(fname1), currkeyword); 
-                //parseCSVGraph2(homepath.concat(fname2), currkeyword); 
-                console.log(homepath.concat(fname3));
-                parseCSVGraph3(homepath.concat(fname3), currkeyword); 
+            if (keyword.indexOf('#') > -1) // remove hash symbol to enable data pulling
+            {
+              keyword = keyword.slice(1);
             }
 
-            else if (keyword === 'security' ) {
-                currkeyword = 'security';
-                var fname1 = currkeyword.concat(suff1);
-                var fname2 = currkeyword.concat(suff2);
-                var fname3 = currkeyword.concat(suff3);
+            currkeyword = keyword; 
+            var fname1 = currkeyword.concat(suff1);
+            var fname2 = currkeyword.concat(suff2);
+            var fname3 = currkeyword.concat(suff3);
 
-                // loading all data and populating charts. 
-                //parseCSVGraph1(homepath.concat(fname1), currkeyword); 
-                //parseCSVGraph2(homepath.concat(fname2), currkeyword); 
-                console.log(homepath.concat(fname3));
-                parseCSVGraph3(homepath.concat(fname3), currkeyword); 
-            }
-
+            // loading all data and populating charts. 
+            //parseCSVGraph1(homepath.concat(fname1), currkeyword); 
+            //parseCSVGraph2(homepath.concat(fname2), currkeyword); 
+            parseCSVGraph3(homepath.concat(fname3), currkeyword); 
     
         }
 
