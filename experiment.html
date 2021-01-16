@@ -35,7 +35,7 @@
    </ul>
 
     <div class='header; display-1'> 
-      <h2>Inauguration Day 3</h2>
+      <h2>Inauguration Day 4</h2>
       
     </div>
      <p align='center'>
@@ -48,8 +48,8 @@
 
               <th> <button onclick="selectKeyword('#inauguration'); " class="my-custom-button btn"> #inauguration </button> </th>
               <th> <button onclick="selectKeyword('#nationalguard'); " class="my-custom-button btn"> #nationalguard </button> </th>
-              <th> <button onclick="selectKeyword('safe'); " class="my-custom-button btn"> safe </button> </th>
-              <th> <button onclick="selectKeyword('security'); " class="my-custom-button btn"> #security </button> </th>
+              <!--<th> <button onclick="selectKeyword('safe'); " class="my-custom-button btn"> safe </button> </th>-->
+              <th> <button onclick="selectKeyword('#security'); " class="my-custom-button btn"> #security </button> </th>
               <th> <button onclick="test(); selectKeyword('#biden');" class="my-custom-button btn"> #biden </button> </th>
               <th> <button onclick="test(); selectKeyword('#bidenharris');" class="my-custom-button btn"> #bidenharris </button> </th>
               <th> <button onclick="test(); selectKeyword('#inaugurationday');" class="my-custom-button btn"> #inaugurationday </button> </th>
@@ -63,14 +63,21 @@
         </tr>
 
         <tr>
-             <th> <button onclick="test(); selectKeyword('#washington');" class="my-custom-button btn"> #washington </button> </th>
+             <!--<th> <button onclick="test(); selectKeyword('#washington');" class="my-custom-button btn"> #washington </button> </th>-->
                 <th> <button onclick="test(); selectKeyword('#impeachment');" class="my-custom-button btn"> #impeachment </button> </th>
              <th> <button onclick="test(); selectKeyword('#uscapitol');" class="my-custom-button btn"> #uscapitol </button> </th>
              <th> <button onclick="test(); selectKeyword('#capitolbuilding');" class="my-custom-button btn"> #capitolbuilding </button> </th>
              <th> <button onclick="test(); selectKeyword('#trump');" class="my-custom-button btn"> #trump </button> </th>
-             <th> <button onclick="test(); selectKeyword('#datasecurity');" class="my-custom-button btn"> #datasecurity</button> </th>
-               <th> <button onclick="test(); selectKeyword('#databreach');" class="my-custom-button btn"> #databreach</button> </th>
-              <th> <button onclick="test(); selectKeyword('#privacy');" class="my-custom-button btn"> #privacy</button> </th>
+
+           <th> <button onclick="test(); selectKeyword('#trumpimpeachment');" class="my-custom-button btn"> #trumpimpeachment</button> </th>
+           <th> <button onclick="test(); selectKeyword('#impeachmentday');" class="my-custom-button btn"> #impeachmentday</button> </th>
+            <th> <button onclick="test(); selectKeyword('#convicttrump');" class="my-custom-button btn"> #convicttrump </button> </th>
+
+
+
+            <!-- <th> <button onclick="test(); selectKeyword('#datasecurity');" class="my-custom-button btn"> #datasecurity</button> </th>-->
+            <!--   <th> <button onclick="test(); selectKeyword('#databreach');" class="my-custom-button btn"> #databreach</button> </th>
+              <th> <button onclick="test(); selectKeyword('#privacy');" class="my-custom-button btn"> #privacy</button> </th>-->
         </tr>
         </tbody>
  </table>
@@ -158,7 +165,7 @@
         var homepath = "https://raw.githubusercontent.com/mayasrikanth/mayasrikanth.github.io/main/data/";
         var currkeyword = 'toxicfeminism';
 
-        var day = '3'; // change depending on simulation date!
+        var day = '4'; // change depending on simulation date!
 
         var suff1 = '_forecast';
         var suff2 = '_observations';
@@ -186,6 +193,7 @@
             {
               keyword = keyword.slice(1);
             }
+            //alert(keyword);
 
             currkeyword = keyword; 
             var fname1 = currkeyword.concat(suff1);
