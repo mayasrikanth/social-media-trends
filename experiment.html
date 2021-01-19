@@ -288,7 +288,7 @@
                 var cos_dist = [];
 
                 
-                for (var i=1; i < res.length; i++) {
+                for (var i=0; i < res.length; i++) {
                     words_arr.push(res[i].Labels);
                     freq_arr.push(res[i].Freq); // raw counts 
                     cos_dist.push(res[i].CosineDist);
@@ -311,7 +311,7 @@
 
 
                 // loading neighbor data. 
-                for(var i=1; i < res.length-1; i ++) {
+                for(var i=0; i < res.length-1; i ++) {
                     var arr = [];
                     arr.push(res[i].Xcoords);
                     arr.push(res[i].Ycoords);
