@@ -35,7 +35,7 @@
    </ul>
 
     <div class='header; display-1'> 
-      <h2>Inauguration Day 6</h2>
+      <h2>Inauguration Day 7</h2>
       
     </div>
      <p align='center'>
@@ -90,6 +90,7 @@
         </tr>
         <tr>
              <th> <button onclick="test(); selectKeyword('#nationalguard');" class="my-custom-button btn"> #nationalguard </button> </th>
+             <th> <button onclick="test(); selectKeyword('#bidenharrisinauguration');" class="my-custom-button btn"> #nationalguard </button> </th>
         </tr>
         </tbody>
  </table>
@@ -177,7 +178,7 @@
         var homepath = "https://raw.githubusercontent.com/mayasrikanth/mayasrikanth.github.io/main/data/";
         var currkeyword = 'toxicfeminism';
 
-        var day = '6'; // change depending on simulation date!
+        var day = '7'; // change depending on simulation date!
 
         var suff1 = '_forecast';
         var suff2 = '_observations';
@@ -288,7 +289,7 @@
                 var cos_dist = [];
 
                 
-                for (var i=1; i < res.length; i++) {
+                for (var i=0; i < res.length; i++) {
                     words_arr.push(res[i].Labels);
                     freq_arr.push(res[i].Freq); // raw counts 
                     cos_dist.push(res[i].CosineDist);
@@ -311,7 +312,7 @@
 
 
                 // loading neighbor data. 
-                for(var i=1; i < res.length-1; i ++) {
+                for(var i=0; i < res.length-1; i ++) {
                     var arr = [];
                     arr.push(res[i].Xcoords);
                     arr.push(res[i].Ycoords);
